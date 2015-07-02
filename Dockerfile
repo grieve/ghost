@@ -1,11 +1,23 @@
-#
-# Ghost Dockerfile
-#
-# https://github.com/dockerfile/ghost
-#
+FROM debian
+MAINTAINER Ryan Grieve <ryan@rehabstudio.com>
 
-# Pull base image.
-FROM node
+# update, upgrade and install base requisites
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+        apt-transport-https \
+        inotify-tools \
+        build-essential \
+        sudo \
+        git \
+        wget \
+        curl
+
+# install node from ppa
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
+
+RUN apt-get install -y unzip
 
 # Install Ghost
 RUN \
